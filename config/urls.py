@@ -20,8 +20,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import SignupView
+from .views import SignupView 
 from django.contrib.auth import views as auth_views
+from .views import activate_account, resend_activation_link, account_activation_sent
 
 
 urlpatterns = [
@@ -33,6 +34,9 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('resend_activation_link/', resend_activation_link, name='resend_activation_link'),
+    path('activate/<uidb64>/<token>/', activate_account, name='activate'),
+    path('account_activation_sent/', account_activation_sent, name='account_activation_sent'),
 
 
 
