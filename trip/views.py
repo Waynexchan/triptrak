@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView , UpdateView, DeleteView
+from django.db.models import Q
+from django.utils.dateparse import parse_date
 
 from.models import Trip, Note
 
@@ -11,10 +13,33 @@ class HomeView(TemplateView):
 
 def trip_list(request):
     trips = Trip.objects.filter(owner= request.user)
+
     context={
         'trips':trips
     }
     return render(request, 'trip/trips_list.html', context)
+
+def trip_search(request):
+    search_query = request.GET.get('search', '')
+    start_date_query = request.GET.get('start_date', '')
+
+    trips = Trip.objects.filter(owner=request.user)
+    
+    if search_query:
+        trips = trips.filter(Q(city__icontains=search_query) | Q(country__icontains=search_query))
+    
+    if start_date_query:
+        start_date = parse_date(start_date_query)
+
+        if start_date:
+            trips = trips.filter(start_date=start_date)
+
+    context = {
+        'trips': trips,
+        'search_query': search_query,
+        'start_date_query': start_date_query,
+    }
+    return render(request, 'trip/trip_search.html', context)
 
 class TripCreateView(CreateView):
     model = Trip

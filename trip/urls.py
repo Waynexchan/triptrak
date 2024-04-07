@@ -1,10 +1,11 @@
 from django.urls import path
 
-from .views import HomeView, trip_list, TripCreateView ,TripDetailView, NoteDetailView, NoteListView, NoteCreateView, NoteUpdateView, NoteDeleteView, TripUpdateView, TripDeleteView
+from .views import HomeView, trip_list, trip_search, TripCreateView ,TripDetailView, NoteDetailView, NoteListView, NoteCreateView, NoteUpdateView, NoteDeleteView, TripUpdateView, TripDeleteView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home' ),
     path('dashboard/', trip_list, name='trip-list' ),
+    path('dashboard/trip/search', trip_search, name='trip-search' ),
     path('dashboard/note/', NoteListView.as_view(), name='note-list' ),
     path('dashboard/trip/create/', TripCreateView.as_view(), name='trip-create' ),
     path('dashboard/note/create/', NoteCreateView.as_view(), name='note-create' ),
