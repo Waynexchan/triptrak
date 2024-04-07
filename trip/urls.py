@@ -14,6 +14,7 @@ urlpatterns = [
     path('dashboard/note/<int:pk>/delete/', NoteDeleteView.as_view(), name='note-delete' ),
     path('dashboard/trip/<int:pk>/update/', TripUpdateView.as_view(), name='trip-update' ),
     path('dashboard/trip/<int:pk>/delete/', TripDeleteView.as_view(), name='trip-delete' ),
+    
 ]
 
 #
