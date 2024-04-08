@@ -135,12 +135,12 @@ cython_debug/
 media/
 
 # Static files
-static/
+#static/
 
 # Secrets
 secrets.json
 
-# IDE specific settings
+# IDE specific 
 .idea/
 .vscode/
 *.sublime-workspace
