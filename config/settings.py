@@ -126,6 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # 添加这行，设定查找静态文件的目录
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -150,3 +153,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'   # Gmail 的 SMTP 伺服器地址
 EMAIL_PORT = 587                # Gmail 的 SMTP 伺服器端口，使用 TLS 需設置為 587
 EMAIL_USE_TLS = True            # 使用 TLS 加密
+
+GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY')

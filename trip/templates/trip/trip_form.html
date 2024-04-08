@@ -1,11 +1,23 @@
+<!DOCTYPE html>
 {% extends "trip/_base.html" %}
 {% load tailwind_filters %}
+{% load static %}
 
 {% block content %}
-    <h1>Trip Form</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" value="Save" class='bg-green-400 px-7 py-2 rounded hover:cursor-pointer hover:bg-green-300'>
-    </form>
+<h1>Trip Form</h1>
+<form action="" method="post" id="trip-form">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div id="map" style="height: 400px; width: 100%;"></div> <!-- 地图容器 -->
+    <input type="submit" value="Save" class='bg-green-400 px-7 py-2 rounded hover:cursor-pointer hover:bg-green-300'>
+</form>
+
+<script type="text/javascript">
+    window.latitude = parseFloat('{{ object.latitude }}') || -34.397;
+    window.longitude = parseFloat('{{ object.longitude }}') || 150.644;
+</script>
+<script src="{% static 'js/map.js' %}" defer></script>
+<!-- Google Maps API 脚本 -->
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAW7YZ7nZfUsB4_jHUx_YyhKXFEmdwGTa8&callback=initMap"></script>
+
 {% endblock content %}

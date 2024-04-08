@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView , UpdateView, DeleteView
 from django.db.models import Q
 from django.utils.dateparse import parse_date
 
-from.models import Trip, Note
+from .forms import TripForm
+
+from .models import Trip, Note
+import os
 
 
 # Create your views here.
@@ -43,14 +46,19 @@ def trip_search(request):
 
 class TripCreateView(CreateView):
     model = Trip
-    success_url = reverse_lazy('trip-list')
-    fields= ['city', 'country', 'start_date', 'end_date']
-    #template named model_form.html
+    form_class = TripForm
+    template_name = 'trip/trip_form.html'
+    success_url = reverse_lazy('trip-list')  # Use the named URL 'trip-list'
 
     def form_valid(self, form):
-        #owner field = logged in user
         form.instance.owner = self.request.user
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['google_maps_api_key'] = os.getenv('GOOGLE_MAPS_API_KEY')
+        return context
+    
     
 class TripDetailView(DetailView):
     model = Trip
@@ -102,8 +110,20 @@ class NoteDeleteView(DeleteView):
 
 class TripUpdateView(UpdateView):
     model = Trip
+    form_class = TripForm 
+    template_name = 'trip/trip_form.html'
     success_url = reverse_lazy('trip-list')
-    fields = ['city', 'country', 'start_date', 'end_date']
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['latitude'] = self.object.latitude
+        initial['longitude'] = self.object.longitude
+        return initial
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['trip'] = self.get_object() # 确保'trip'对象存在于上下文中
+        return context
     # template named model_form trip_form
     # don't need get_form because we don't need to limit the usage
 
