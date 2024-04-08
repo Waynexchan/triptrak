@@ -96,8 +96,8 @@ DATABASES = {
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:wayne888@localhost:5432/postgres',
-        conn_max_age=600
+        default=os.environ.get('DATABASE_URL'),  # 获取环境变量 DATABASE_URL 的值
+        conn_max_age=600  # 连接可以重用的最长时间，单位是秒
     )
 }
 
