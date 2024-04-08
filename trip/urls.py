@@ -1,5 +1,4 @@
-from django.conf import settings
-from django.conf.urls.static import static
+
 from django.urls import path
 
 from .views import HomeView, trip_list, trip_search, TripCreateView ,TripDetailView, NoteDetailView, NoteListView, NoteCreateView, NoteUpdateView, NoteDeleteView, TripUpdateView, TripDeleteView
@@ -20,5 +19,3 @@ urlpatterns = [
     
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
