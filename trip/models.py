@@ -31,7 +31,7 @@ class Note(models.Model):
     )
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='notes')
     name = models.CharField(max_length=100)
-    desctripton = models.TextField()
+    description  = models.TextField()
     type = models.CharField(max_length=100, choices=EXCURSIONS)
     image = models.ImageField(upload_to='notes', blank=True, null=True)
     #pillow

@@ -86,6 +86,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 '''
+#sqlite
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -94,11 +95,22 @@ DATABASES = {
 }
 '''
 
+#Render
+'''
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),  # 获取环境变量 DATABASE_URL 的值
-        conn_max_age=600  # 连接可以重用的最长时间，单位是秒
+        default=os.environ.get('DATABASE_URL'),  
+        conn_max_age=600  
     )
+}
+'''
+
+#local pg
+DATABASES = {
+'default': dj_database_url.config(
+default='postgresql://postgres:wayne888@localhost:5432/postgres',
+conn_max_age=600
+)
 }
 
 

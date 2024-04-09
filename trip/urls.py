@@ -1,5 +1,7 @@
 
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from .views import HomeView, trip_list, trip_search, TripCreateView ,TripDetailView, NoteDetailView, NoteListView, NoteCreateView, NoteUpdateView, NoteDeleteView, TripUpdateView, TripDeleteView
 
@@ -17,5 +19,5 @@ urlpatterns = [
     path('dashboard/trip/<int:pk>/update/', TripUpdateView.as_view(), name='trip-update' ),
     path('dashboard/trip/<int:pk>/delete/', TripDeleteView.as_view(), name='trip-delete' ),
     
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

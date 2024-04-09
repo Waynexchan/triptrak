@@ -49,11 +49,11 @@ def activate_account(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        # 登入用戶
-        # 重定向到主頁面或顯示成功頁面
+        # User Login
+        # Redirect to success page
         return redirect('home')
     else:
-        # 顯示失敗頁面
+        # display activation_fail
         return render(request, 'activation_failed.html', {})
     
 def account_activation_sent(request):
